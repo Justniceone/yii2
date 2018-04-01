@@ -1,7 +1,10 @@
 <?php
 namespace webserver\controllers\app\document;
 
+use common\models\User;
 use webserver\models\app\document\Article;
+use yii\filters\auth\CompositeAuth;
+use yii\filters\auth\HttpBasicAuth;
 use yii\filters\auth\QueryParamAuth;
 use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
@@ -16,11 +19,44 @@ class ArticleController extends ActiveController
         'collectionEnvelope'=>'lists',
     ];
 
-    public function behaviors()
+    /**
+     * QueryParamAuth 授权
+     */
+ /*   public function behaviors()
     {
         return ArrayHelper::merge(parent::behaviors(),[
             'authenticatior'=>['class'=>QueryParamAuth::class]
         ]);
+    }*/
+
+    /**
+     * @return array|\yii\db\ActiveRecord[] httpAuth授权
+     */
+
+ /*   public function behaviors()
+        {
+            return ArrayHelper::merge(parent::behaviors(),[
+                'authenticatior'=>[
+                    'class'=>HttpBasicAuth::class,
+                    'auth'=>function($username,$password){
+                        return User::find()->where(['username'=>$username,'password'=>$password])->one();
+                    }
+                ],
+            ]);
+        }*/
+
+    public function behaviors()
+    {
+        $behaviors = parent::behaviors();
+        $behaviors['authenticator'] = [
+            'class' => CompositeAuth::className(),
+            'authMethods' => [
+                HttpBasicAuth::className(),
+                //HttpBearerAuth::className(),
+                QueryParamAuth::className(),
+            ]
+        ];
+        return $behaviors;
     }
 
     public function actionSearch()
@@ -28,5 +64,9 @@ class ArticleController extends ActiveController
         $lists = Article::find()->where(['like','title',\Yii::$app->request->get('title')])->all();
         return $lists;
     }
-    
+
+    public function actionTest()
+    {
+
+    }
 }
