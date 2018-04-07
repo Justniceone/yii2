@@ -2,6 +2,8 @@
 namespace webserver\controllers\app\document;
 
 use common\models\User;
+use webserver\components\MyBehavior;
+use webserver\components\MyBehaviorAttach;
 use webserver\models\app\document\Article;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpBasicAuth;
@@ -51,9 +53,9 @@ class ArticleController extends ActiveController
         $behaviors['authenticator'] = [
             'class' => CompositeAuth::className(),
             'authMethods' => [
-                HttpBasicAuth::className(),
+                //HttpBasicAuth::className(),
                 //HttpBearerAuth::className(),
-                QueryParamAuth::className(),
+                //QueryParamAuth::className(),
             ]
         ];
         return $behaviors;
@@ -65,8 +67,4 @@ class ArticleController extends ActiveController
         return $lists;
     }
 
-    public function actionTest()
-    {
-
-    }
 }

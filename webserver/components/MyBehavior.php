@@ -1,14 +1,14 @@
 <?php
-namespace webserver\componnents;
+namespace webserver\components;
 
 use yii\base\Behavior;
 
 class MyBehavior extends Behavior
 {
-    public $property1 = [1,2,3,];
+    public $prop = '这是mybehavior类的属性';
 
-    public function getProperty1()
+    public function method()
     {
-        return $this->property1;
+        echo '这是mybehavior类的方法';
     }
 }

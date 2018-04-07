@@ -23,4 +23,5 @@ class LoginController extends ActiveController
             return $model->getErrors();
         }
     }
+    
 }
