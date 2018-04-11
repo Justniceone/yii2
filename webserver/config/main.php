@@ -47,6 +47,7 @@ return [
                 ['class'=>'yii\rest\UrlRule','controller'=>'tag'],
                 ['class'=>'yii\rest\UrlRule','controller'=>'app/document/article','extraPatterns'=>['GET search'=>'search']],
                 ['class'=>'yii\rest\UrlRule','controller'=>'login','extraPatterns'=>['POST sign'=>'sign']],
+                ['class'=>'yii\rest\UrlRule','controller'=>'camera']
             ],
         ],
 
